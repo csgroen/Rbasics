@@ -1,0 +1,154 @@
+---
+title: "_Primeiros Comandos_: Iniciando na linguagem R"
+author: "Kelin G. deOliveira, Mauro A. A. Castro"
+date: "`r Sys.Date()`"
+output:  BiocStyle::html_document
+vignette: >
+  %\VignetteIndexEntry{Primeiros Comandos: Iniciando na linguagem R}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+  %\SweaveUTF8
+---
+
+# Introdução ao R
+
+O R é um ambiente estatístico de programação baseado na linguagem S. É apropriado para análises de dados de alto nível, além de possuir diversas técnicas gráficas para a visualização dos dados. Há uma vasta gama de pacotes desenvolvidos para ambiente R, uma comunidade ativa de desenvolvedores e ampla documentação.
+
+![Image](figs/Rconsole.png)
+<legend>Figura 1 - Console RGui. Os scrips podem ser rodados normalmente neste ambiente, mas a falta de uma interface mais elaborada pode dificultar a elaboração da análise e a navegação dos usuários.</legend>
+
+## RStudio
+O Rstudio é um ambiente de desenvolvimento integrado (IDE) para a linguagem R que permitirá o usuário navegar entre console, editor, ambiente, histórico, arquivos, plots, help e etc de uma maneira mais eficiente e visual.
+
+![Image](figs/Rstudio.png)
+<legend>Figura 2 - RStudio é um software de código aberto e gratuito que, assim como o R, é capacitado para rodar nas plataformas Windows, Mac e Linux.</legend>  
+
+Crie um novo Rscript e digite:
+```{r eval=FALSE}
+x<-2+2
+print(x)
+```
+Salve o arquivo (teste.R) no diretório de trabalho, retorne ao console e execute seu script:
+```{r eval=FALSE}
+source("teste.R")
+```
+
+## Help
+Todos os comandos de busca em R são funções:
+
+```{r eval=FALSE}
+help.start()
+help("sum")
+help.search("cbind")
+```
+## Interagindo com o console
+";" fim de linha  
+"#" comentários  
+"+" console em espera de comando  
+"Esc" para limpar linha de comando  
+"Ctrl+l" para limpar janela  
+"TAB" para auto-completar  
+Setas "UP/Down" para acessar comandos feitos anteriormente  
+"Ctrl+Enter" para executar uma linha de comando do Script
+
+## Repositórios
+Fornecem funcionalidades adicionais:
+```{r eval=FALSE}
+setRepositories()
+```
+-CRAN (Comprehensive R Archive Network): É uma rede de servidores ao redor do mundo que guarda e fornece códigos e documentação para R. Possui mais de 6000 pacotes disponíveis que podem ser acessados por http://cran.r-project.org/search.html, http://cran.r-project.org/web/views/ ou por chamada dentro do R (ver adiante em instalação de pacotes)  
+
+-Bioconductor: É um software open source que provém ferramentas para análises e compreensão de dados genômicos provenientes de high-throughput. Possui mais de 2600 pacotes, que podem ser acessados pelo link: http://www.bioconductor.org/packages/release/BiocViews.html  
+
+Para importar do Bioconductor:
+```{r eval=FALSE}
+source("http://bioconductor.org/biocLite.R")
+```
+
+## Instalação de pacotes
+Para instalar pacotes do CRAN:
+```{r eval=FALSE}
+install.packages("NomeDoPacote")
+```
+Para instalar pacotes do Bioconductor, após a chamada source:
+```{r eval=FALSE}
+biocLite("NomeDoPacote")
+```
+Para usar os pacotes instalados, o R requer que estes sejam carregados antes:
+```{r eval=FALSE}
+library("NomeDoPacote")
+```
+### Alguns pacotes interessantes de ter
+limma  
+RColorBrewer  
+stats  
+RTN  
+RedeR  
+org.Hs.eg.db  
+STRINGdb  
+HTSanalyzeR  
+GO.db  
+GEOquery  
+hgu133plus2.db  
+GSEABase  
+
+### Vinhetas
+Fornecem exemplos e documentação para pacotes do Bioconductor.
+Podem ser acessadas pelo R (depois que o pacote foi instalado e carregado) via console>
+```{r eval=FALSE}
+vignette("NomeDoPacote")
+```
+Ou por www.bioconductor.org/docs/vignettes.html
+
+
+# Comandos Básicos
+
+### Aritmética e variáveis
+Escreva qualquer coisa na linha de comando e o R irá avaliar e mostrar a resposta:
+
+```{r eval=FALSE}
+1 + 1
+"Olá!"
+3<4
+2+2==5
+```
+### Atribuir resultados e variáveis
+
+```{r eval=FALSE}
+x <- 10
+x/2
+a <- "Aluno"
+a
+```
+
+### Funções
+São chamadas pelo nome e recebem argumentos.
+
+```{r eval=FALSE}
+sum(1,3,5)
+
+a<-rep("Aluno", times=3)
+a
+```
+### Ajuda
+
+```{r eval=FALSE}
+help(sum)
+
+?sum
+```
+
+# Lições Interativas
+Você já tem instalado neste computador um pacote chamado swirl. O swirl é um guia interativo com cursos práticos em linguagem R. Com o swirl, é possível fazer lições voltadas para os mais diversos níveis em linguagem R. Agora, faremos um curso básico, chamado: Programacao_em_R.  
+Comece carregando o pacote swirl, alterando o idioma para Português e usando a função que mostra os cursos.
+```{r eval=FALSE}
+#Carrega o pactoe swirl
+library(swirl)
+
+#Altera idioma
+select_language("portuguese")
+
+#Começa o curso
+swirl()
+```
+**Passe pelas instruções iniciais e, em seguida, selecione a lição de Componentes Basicos dentro do curso Programacao em R.**
