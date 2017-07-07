@@ -277,4 +277,4 @@ Para fazer a próxima lição, basta chamar a função novamente
 #Começa o curso
 swirl()
 ```
-**Selecione a lição "Subconjunto de Vetores" dentro do curso Programacao em R. Quando terminar, pode se aventurar na lição "Matrizes e Data Frames".**
+Dentro do curso **Programação em R**, Selecione a **lição "Subconjunto de Vetores"**. Quando terminar, pode se aventurar na **lição "Matrizes e Data Frames"**.
