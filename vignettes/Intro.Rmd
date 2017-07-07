@@ -151,4 +151,4 @@ select_language("portuguese")
 #Começa o curso
 swirl()
 ```
-**Passe pelas instruções iniciais e, em seguida, selecione a lição de Componentes Basicos dentro do curso Programacao em R.**
+Passe pelas instruções iniciais e, em seguida, selecione o **curso Programação em R**. Para colocar o conteúdo desta vinheta em prática, faça a lição entitulada **Componentes Básicos**.
