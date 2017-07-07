@@ -146,4 +146,4 @@ Para fazer a próxima lição, basta chamar a função novamente
 #Começa o curso
 swirl()
 ```
-**Selecione a lição "Graficos Basicos" dentro do curso Programacao em R.**
+De volta ao **curso Programação em R**, selecione a **lição "Gráficos Básicos"** para colocar em prática as tuas novas habilidades em plotar gráficos.
