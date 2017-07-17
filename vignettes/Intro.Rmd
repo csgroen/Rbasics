@@ -142,7 +142,7 @@ help(sum)
 Você já tem instalado neste computador um pacote chamado swirl. O swirl é um guia interativo com cursos práticos em linguagem R. Com o swirl, é possível fazer lições voltadas para os mais diversos níveis em linguagem R. Agora, faremos um curso básico, chamado: Programacao_em_R.  
 Comece carregando o pacote swirl, alterando o idioma para Português e usando a função que mostra os cursos.
 ```{r eval=FALSE}
-#Carrega o pactoe swirl
+#Carrega o pacote swirl
 library(swirl)
 
 #Altera idioma
