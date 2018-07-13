@@ -1,0 +1,153 @@
+---
+title: "Objetos - Parte 1"
+author: "Kelin G. deOliveira, Clarice S. Groeneveld, Mauro A. A. Castro"
+date: "`r Sys.Date()`"
+output: 
+  BiocStyle::html_document
+vignette: >
+  %\VignetteIndexEntry{"Criando objetos no R - Parte 1"}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+# Conceitos Essenciais
+
+Dados podem ser de vários *tipos*. Por exemplo, em uma coleta de dados sobre
+o sono de mamíferos, podemos ter números (ex.: quantas horas cada
+animal dorme por dia), palavras (ex.: espécie dos animais), valores sim/não (ex.:
+dorme mais do que 12 horas por dia?)
+
+No R, todos esses tipos de dados existem, bem como alguns outros.
+
+## Tipos de dados
+
+## Armazenamento de dados
+Cada vez que atribuímos um valor a uma variável usando `<-`, estamos criando um objeto.
+Os objetos são métodos de armazenar os dados. Há diferentes *classes* de objetos, com características próprias. Abaixo, vamos explorar diferentes classes básicas do R.
+
+
+### Lógico
+O dado lógico assume apenas dois valores: TRUE ou FALSE (verdadeiro ou falso).
+Pode representar variáveis binárias ou ser o resultado de comparações.
+
+```{r eval = FALSE}
+3 + 7 == 7 + 3
+6^2 < 6*2
+```
+
+### Numérico
+Com valores numéricos, é possível realizar operações matemáticas no R. "Numéricos"
+podem ser inteiros ou valores reais.
+
+```{r eval = FALSE}
+num <- 1
+num
+num + 0.1
+```
+
+### Caractere
+Um valor caractere pode ser apenas uma letra ou uma palavra (em computação, 
+também chamada de *string*)
+```{r eval = FALSE}
+letra <- "a"
+palavra <- "abracadabra"
+is.character(letra)
+is.character(palavra)
+```
+
+
+# Vetores
+São o tipo mais simples de armazenar dados, colocando-os em sequência. Todos os
+objetos que criamos até agora são vetores. Mesmo a expressão `a <- 1` cria um vetor,
+de comprimento 1.
+
+### Criando e manipulando vetores numéricos
+A função `c()` - que significa combinar/concatenar - é usada para criar um vetor.
+```{r eval=FALSE}
+x <- c(1,3,5,7,9)
+x
+```
+Operações são aplicadas a cada elemento do vetor.
+
+```{r eval=FALSE}
+x^2
+```
+
+Podem ser acessado e modificados usando a notação [].
+
+```{r eval=FALSE}
+x[2]
+
+x[2] <- 10
+x
+
+z <- c(5,6,7,8,9,10)
+z
+
+z[1:3]
+
+z[1:3]<-c(0,0,NA)
+```
+É possível adicionar elementos a um vetor.
+```{r eval=FALSE}
+z<- c(z, 11)
+```
+Ou remover elementos.
+```{r eval=FALSE}
+z<- z[-c(1,2,3)]
+```
+Também é possível criar sequências.
+```{r eval=FALSE}
+seq(1,5,0.5)
+```
+
+### Criando e manipulando vetores de caracteres
+```{r eval=FALSE}
+letras<- c("a", "A", "b", "B", "c", "j", "Z")
+palavras<- c("Manaus", "Boa Vista", "Belém", "Brasília")
+```
+Acessar um item ou ver tamanho do vetor:
+```{r eval=FALSE}
+letras[4]
+length(palavras)
+```
+Para atualizar um item do vetor basta acessá-lo e atribuir um novo valor.
+```{r eval=FALSE}
+letras[6]<-"Y"
+```
+### O que acontece se adicionarmos dados de tipo diferente?
+Se tentarmos armazenar dados de tipos diferentes no mesmo vetor:
+```{r eval=FALSE}
+varios_dados <- c(6, "a", "b", TRUE)
+```
+o R irá 'coergir' os elementos a um tipo mais 'primitivo', ou seja, mais geral.
+Por exemplo, numéricos e lógicos serão coergidos a caracteres se houver caracteres
+no mesmo vetor.
+```{r eval=FALSE}
+varios_dados
+```
+### Nome de vetores
+```{r eval=FALSE}
+names(palavras)<-c("Pedro", "Paulo", "Ana", "Maria")
+palavras["Ana"]
+```
+
+### Valores NA
+NA indica ausência de valores, o que pode atrapalhar o funcionamento das funções.  
+Veja o que ocorre quando uma função de soma é aplicada a um vetor contendo NA.
+```{r eval=FALSE}
+a<-c(1,3,NA,7,9)
+sum(a)
+```
+Para retirar esta interferência, o parâmetro na.rm é bastante útil.
+```{r eval=FALSE}
+sum(a, na.rm=TRUE)
+```
+# Lições Interativas
+Novamente, vamos utilizar o swirl para a fixação do conteúdo.
+Se você ainda não tem o pacote swirl carregado no teu ambiente, volte na vignette("Intro"), na sessão de Lições Interativas para ver como fazer este passo.  
+Para fazer a próxima lição, basta chamar a função novamente
+```{r eval=FALSE}
+#Começa o curso
+swirl()
+```
+Dentro do curso **Programação em R**, selecione a **lição "Subconjunto de Vetores"**

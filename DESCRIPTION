@@ -1,7 +1,7 @@
 Package: Rbasics
 Type: Package
 Title: Ferramenta de auxílio no entendimento da linguagem R básica.
-Version: 0.2.0
+Version: 0.2.1
 Author: Kelin G. deOliveira, Mauro A. A. Castro, Clarice S. Groeneveld, Sheyla Trefflich
 Maintainer: Clarice S. Groeneveld <clari.groeneveld@gmail.com>
 Depends: R (>= 3.3)
