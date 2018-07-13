@@ -2,12 +2,13 @@
 title: "_Primeiros Comandos_: Iniciando na linguagem R"
 author: "Kelin G. deOliveira, Mauro A. A. Castro"
 date: "`r Sys.Date()`"
-output:  BiocStyle::html_document
+output: 
+  BiocStyle::html_document
 vignette: >
   %\VignetteIndexEntry{Primeiros Comandos: Iniciando na linguagem R}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
-  %\SweaveUTF8
+  
 ---
 
 # Introdução ao R

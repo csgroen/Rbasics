@@ -2,23 +2,22 @@
 title: "Plots e RedeR"
 author: "Kelin G. deOliveira, Mauro A. A. Castro"
 date: "`r Sys.Date()`"
-output:  BiocStyle::html_document
+output: 
+  BiocStyle::html_document
 abstract: 
 vignette: >
-  %\VignetteIndexEntry{"Plots"}
+  %\VignetteIndexEntry{"Visualização de dados no R"}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
   %\SweaveUTF8
 ---
 # Introdução
 Plots podem ser feitos de várias maneiras em linguagem R, uma das funções mais utilizadas é o plot, que compreende uma família de funções genéricas presentes no núcleo do R, ou seja, vêm junto do R sem necessitar a instalação de um pacote específico. Dependendo do que se deseja, outras funções para plotar podem ser utilizadas, tornando possível a montagem de grafos diversos, como de pontos (scatter), regressão linear, de barras, histogramas, boxplots, etc.
-O RedeR é um pacote baseado em R combinado com aplicação Java para visualização e manipulação dinâmica de redes. O pacote tira vantagem do R para realizar análises estatísticas robustas, enquanto que a interface de R para Java interliga a lacuna existente entre análise de redes e visualização. Ele foi feito para lidar com três desafios principais em análise de redes. Primeiramente, redes biológicas são modulares e hierárquicas, então a visualização precisa fazer uso de tais características. Em segundo, a análise de redes depende de métodos estatísticos, dos quais muitos já estão disponíveis em repositórios como CRAN ou Bioconductor. No entanto, o gap entre visualização avançada e computação estatística torna difícil o completo aproveitamento dos pacotes R para análise de redes. Em terceiro lugar, redes muito grandes tendem a precisarem de input de dados fornecidos pelo usuário a fim de focar a construção da rede para o que é biologicamente relevante, não sendo possível confiar em funções automáticas de layout.
-RedeR é construído de modo a superar tais dificuldades.  
 
-![Image](figs/RedeR.png)
-<legend>Figura 1 - Representação esquemática das chamadas do RedeR. Na interface de baixo nível, o webserver Apache xmlrpc é utilizado para conectar o R ao Java. </legend>
+Há formas mais avançadas de plotar utilizando o R (como através do pacote ggplot2), porém um conhecimento do sistema básico de gráficos é importante para construção do conhecimento. No entanto, para análise de dados em rede, vamos utilizar um derivado do ggplot2, o ggnet.
 
-##Iniciando com plots
+
+## Iniciando com plots
 Quando se trabalha com uma grande quantidade de dados, a representação destes em forma dde grafos é extremamente necessária a fim de obter os insights que só podem ser vistos por abordagens mais abrangentes.  
 Para exemplificar o uso de plots para dados biológicos, vamos carregar e visualizar um dataset jś presente no R, o iris.
 ```{r eval=FALSE}
@@ -30,7 +29,7 @@ Iris contém os dados de comprimento e largura da sépala e da pétala de 150 pl
 ![Image](figs/flor2.jpg)
 <legend>Figura 2 - Representação da estrutura de uma flor. A sépala é a região da flor que fornece sustentação às pétalas. </legend>
 
-###Scatter Plot
+### Scatter Plot
 O scatter plot (gráfico de dispersão) é útil em comparações entre duas variáveis contínuas. Para plotar um scatter plot da relação entre o comprimento e a largura das pétalas, basta utilizar a função plot.
 ```{r eval=FALSE}
 plot(x = iris$Petal.Length, 
@@ -68,7 +67,7 @@ pairs(iris[1:4],
       pch = 21, 
       bg = c("red", "green3", "blue")[unclass(iris$Species)])
 ```
-###Histograma
+### Histograma
 O histograma avalia a distribuição dos seus dados em diferentes intervalos. Para ver se os dados seguem uma distribuição normal, o histograma é de grande utilidade:
 ```{r eval=FALSE}
 hist(iris$Sepal.Width)
@@ -79,7 +78,7 @@ O gráfico pode ser refinado mudando o número de intervalos:
 hist(iris$Sepal.Length, breaks = 6)
 ```
 
-###Boxplot
+### Boxplot
 O boxplot (diagrama de caixa) é útil quando temos uma variável contínua que deve ser comparada entre grupos (variável categórica). Por exemplo, um boxplot pode ser utilizado para comparar as diferenças entre as três espécies, por exemplo, como a largura da pétala.
 ```{r eval=FALSE}
 boxplot(iris$Petal.Width~iris$Species, iris$Species, 
@@ -87,13 +86,13 @@ boxplot(iris$Petal.Width~iris$Species, iris$Species,
         ylab="Largura da pétala") # 'y label', nome do eixo y
 ```
 
-###Barplot
+### Barplot
 O barplot é interessante quando queremos contar quantos elementos têm em cada grupo (frequência de variável categórica). Aqui, por exemplo, podemos mostrar quantas iris de cada espécie estão presentes no nosso dataframe.
 
 ```{r eval=FALSE}
 barplot(table(iris$Species))
 ```
-###Heatmaps
+### Heatmaps
 Torna visível a clusterização das espécies conforme determinadas características. No heatmap, podemos ver associação entre várias características e entre as observações ao mesmo tempo.
 ```{r eval=FALSE}
 library(pheatmap)
@@ -103,7 +102,7 @@ pheatmap(t(iris[,1:4]), # t de 'transpose' -> transpor a matriz
          show_colnames = FALSE) # esconde nomes das colunas (1 a 150)
 ```
 
-###Gráfico de rede
+### Gráfico de rede
 Vamos supor que queremos visualizar uma rede de interações entre proteínas (rede PPI). A partir do STRINGdb, um banco de dados de interações proteína-proteína, importamos todas as relações (`esr1_ppi`). De lá, também adquirimos informações sobre as proteínas da rede (`prot_annot`). Para o receptor de estrogênio 1 (ESR1), esses dados estão armazenados em `ppi4esr1`.
 
 ```{r eval = FALSE}

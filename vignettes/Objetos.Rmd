@@ -2,12 +2,12 @@
 title: "Objetos - Parte 1"
 author: "Kelin G. deOliveira, Clarice S. Groeneveld, Mauro A. A. Castro"
 date: "`r Sys.Date()`"
-output:  BiocStyle::html_document
+output: 
+  BiocStyle::html_document
 vignette: >
-  %\VignetteIndexEntry{"Manual Objetos"}
+  %\VignetteIndexEntry{"Criando objetos no R - Parte 1"}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
-  %\SweaveUTF8
 ---
 # Conceitos Essenciais
 

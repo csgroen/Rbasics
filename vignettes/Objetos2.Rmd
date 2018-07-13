@@ -2,13 +2,15 @@
 title: "Objetos - Parte 2"
 author: "Kelin G. deOliveira, Clarice S. Groeneveld, Mauro A. A. Castro"
 date: "`r Sys.Date()`"
-output:  BiocStyle::html_document
+output: 
+  BiocStyle::html_document
 vignette: >
-  %\VignetteIndexEntry{"Manual Objetos"}
+  %\VignetteIndexEntry{"Criando objetos no R - Parte 2"}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
-  %\SweaveUTF8
+  
 ---
+
 # Dados mais complexos
 Dados simples podem ser armazenados em vetores, como mostrado anteriormente. Mas, muitas vezes, desejamos colocar nossos dados em forma de tabela. Imagine, por exemplo, que você tem informação sobre a expressão de 100 genes em 6 amostras. Isso poderia ser armazenado em 6 vetores com 100 elementos (um vetor para cada amostra), ou 100 vetores de 6 elementos (um vetor para cada gene).
 
