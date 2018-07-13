@@ -1,0 +1,163 @@
+---
+title: "Objetos - Parte 2"
+author: "Kelin G. deOliveira, Clarice S. Groeneveld, Mauro A. A. Castro"
+date: "`r Sys.Date()`"
+output:  BiocStyle::html_document
+vignette: >
+  %\VignetteIndexEntry{"Manual Objetos"}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+  %\SweaveUTF8
+---
+# Dados mais complexos
+Dados simples podem ser armazenados em vetores, como mostrado anteriormente. Mas, muitas vezes, desejamos colocar nossos dados em forma de tabela. Imagine, por exemplo, que você tem informação sobre a expressão de 100 genes em 6 amostras. Isso poderia ser armazenado em 6 vetores com 100 elementos (um vetor para cada amostra), ou 100 vetores de 6 elementos (um vetor para cada gene).
+
+Mas é muito mais simples pensar em armazenar esse dado em uma tabela com 100 linhas (uma para cada gene) e 6 colunas (uma para cada amostra)
+
+# Matrizes
+Matrizes têm múltiplas colunas de vetores com o mesmo tipo de dado (numérico, ou caractere, ou lógico), formando uma tabela:
+```{r eval=FALSE}
+a<-1:10
+b<-21:30
+c<-81:90
+d<-matrix(c(a,b,c), ncol=3)
+```
+Todas as colunas de uma matriz devem ter a mesma quantidade de linhas para serem aceitas.  
+É possível extrair dados da matriz com a conotação []: NomeDaMatriz[#linha,#coluna].
+```{r eval=FALSE}
+d[8,2]
+d[2,3]
+d[2:3, ]
+d[1,]<-NA
+```
+Dimensão de uma matriz
+```{r eval=FALSE}
+dim(d)
+nrow(d)
+ncol(d)
+```
+### Gráficos com matrizes
+```{r eval=FALSE}
+mt <- matrix(1, 10, 10)
+mt[4, 6] <- 0
+image(mt)
+contour(mt)
+persp(mt, expand=0.2)
+```
+
+# Dataframes
+Dataframes são estruturas mais flexíveis - elas aceitam vetores que contêm dados de classes diferentes. Matrizes são preferíveis para cálculos enquanto Dataframes são melhores para armazenamento de dados tabulares no geral.
+```{r eval=FALSE}
+a<-1:10
+b<-letters[1:10]
+c<-month.name[1:10]
+d<-data.frame(a,b,c)
+colnames(d)
+colnames(d)<-c("ColA", "ColB", "ColC")
+```
+A notação $ pode ser usada para acessar as colunas, se elas estiverem nomeadas.
+```{r eval=FALSE}
+d$ColA
+d[["ColA"]]
+```
+O subset em dataframes funciona a mesma maneira que matrizes, com NomeDoDataframe[#linha,#coluna].   
+  
+Ex: Pegar as 5 primeiras linhas de cada coluna
+```{r eval=FALSE}
+d[1:5,]
+```
+OBS: Transforme o dataframe em uma matriz e veja o que acontece.
+```{r eval=FALSE}
+e<-as.matrix(d)
+```
+### Salvar dataframes
+```{r eval=FALSE}
+write.table(d, file="tabela.txt", quote=FALSE, sep="\t", row.names=TRUE)
+write.csv(d, file="tabela.csv", row.names=FALSE)
+list.files()
+```
+### Ler/carregar dataframes
+```{r eval=FALSE}
+dados1 <- read.table(file = "tabela.txt", sep="\t")
+dados2 <- read.csv(file = "tabela.csv")
+```
+# Listas
+Armazenam coleções de qualquer objeto ou tipo de dado aceito pelo R. 
+Ex: É possível armazenar um vetor, uma matriz e um data frame no mesmo objeto.
+```{r eval=FALSE}
+a<-1:10
+b<-matrix(runif(100), ncol=10, nrow=10)
+c<-data.frame(ColA=a, Meses=month.name[1:10])
+
+my_list<-list(obj1=a, obj2=b, obj3=c)
+```
+Notação $ pode ser usada para resgatar itens da lista.
+```{r eval=FALSE}
+my_list$obj1
+```
+Para visualizar o primeiro slot da lista:
+```{r eval=FALSE}
+my_list[1]
+```
+Para acessar o conteúdo do primeiro slot:
+```{r eval=FALSE}
+my_list[[1]]
+```
+Pegar o segundo item do primeiro slot da lista:
+```{r eval=FALSE}
+my_list[[1]][2]
+```
+
+# Funções
+Apesar de serem aplicadas nos objetos citados acima, as funções também podem ser consideradas objetos do R. Além das funções que já utilizamos até agora, há muitas outras criadas para fazer os mais diversos tipos de cálculos.
+
+### Funções de sumarização
+Vetor nomeado com o número de pernas e braços na tripulação de um barco:
+```{r eval=FALSE}
+per_bra<-c(4,3,4,3,2,4,4,4,14)
+names(per_bra)<- c("Caolho", "Perneta", "Silva", "Capitão", "Zé1", "Zé2", "Zé3", "Bnigra", "DJones")
+```
+Média
+```{r eval=FALSE}
+mean(per_bra)
+barplot(per_bra, xlab="Tripulantes",ylab="Pernas e bracos",cex.names=0.7)
+abline(h = mean(per_bra), col="red",lw=2)
+```
+Desvio Padrão
+```{r eval=FALSE}
+sd(per_bra)
+abline(h = mean(per_bra)+sd(per_bra), col="blue",lw=2)
+abline(h = mean(per_bra)-sd(per_bra), col="blue",lw=2)
+```
+Mediana
+```{r eval=FALSE}
+median(per_bra)
+```
+### Criando suas pŕoprias funções
+Estrutura mínima
+```{r eval=FALSE}
+myfun1<-function(){
+  print("Olá! Esta é a minha primeira função")
+}
+myfun1()
+```
+Recebendo argumentos
+```{r eval=FALSE}
+myfun2<-function(x,y){
+  x+y
+}
+myfun2(2,2)
+```
+Um arquivo contendo suas funções pode ser carregado no ambiente de trabalho usando:
+```{r eval=FALSE}
+source("minhasFunções.R")
+```
+# Lições Interativas
+Vamos continuar com as atividades no swirl.  
+Se você ainda não tem o pacote swirl carregado no teu ambiente, volte na vignette("Intro"), na sessão de Lições Interativas para ver como fazer este passo.  
+Para fazer a próxima lição, basta chamar a função novamente
+```{r eval=FALSE}
+#Começa o curso
+swirl()
+```
+Dentro do curso **Programação em R**, selecione a **lição "Matrizes e Data Frames"** para se aprofundar no conteúdo que acabamos de explorar.

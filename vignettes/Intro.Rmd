@@ -42,23 +42,22 @@ help("sum")
 help.search("cbind")
 ```
 ## Interagindo com o console
-";" fim de linha  
-"#" comentários  
-"+" console em espera de comando  
-"Esc" para limpar linha de comando  
-"Ctrl+l" para limpar janela  
-"TAB" para auto-completar  
-Setas "UP/Down" para acessar comandos feitos anteriormente  
-"Ctrl+Enter" para executar uma linha de comando do Script
+* "#" comentários  
+* "+" console em espera de comando  
+* "Esc" para limpar linha de comando  
+* "Ctrl+l" para limpar janela  
+* "TAB" para auto-completar  
+* Setas "Up/Down" para acessar comandos feitos anteriormente  
+* "Ctrl+Enter" para executar uma linha de comando do Script
 
 ## Repositórios
 Fornecem funcionalidades adicionais:
 ```{r eval=FALSE}
 setRepositories()
 ```
--CRAN (Comprehensive R Archive Network): É uma rede de servidores ao redor do mundo que guarda e fornece códigos e documentação para R. Possui mais de 6000 pacotes disponíveis que podem ser acessados por http://cran.r-project.org/search.html, http://cran.r-project.org/web/views/ ou por chamada dentro do R (ver adiante em instalação de pacotes)  
+* **CRAN** (Comprehensive R Archive Network): É uma rede de servidores ao redor do mundo que guarda e fornece códigos e documentação para R. Possui mais de 6000 pacotes disponíveis que podem ser acessados por http://cran.r-project.org/search.html, http://cran.r-project.org/web/views/ ou por chamada dentro do R (ver adiante em instalação de pacotes)  
 
--Bioconductor: É um software open source que provém ferramentas para análises e compreensão de dados genômicos provenientes de high-throughput. Possui mais de 2600 pacotes, que podem ser acessados pelo link: http://www.bioconductor.org/packages/release/BiocViews.html  
+* **Bioconductor**: É um software open source que provém ferramentas para análises e compreensão de dados genômicos provenientes de high-throughput. Possui mais de 2600 pacotes, que podem ser acessados pelo link: http://www.bioconductor.org/packages/release/BiocViews.html  
 
 Para importar do Bioconductor:
 ```{r eval=FALSE}
@@ -78,23 +77,27 @@ Para usar os pacotes instalados, o R requer que estes sejam carregados antes:
 ```{r eval=FALSE}
 library("NomeDoPacote")
 ```
-### Alguns pacotes interessantes de ter
-limma  
-RColorBrewer  
-stats  
-RTN  
-RedeR  
-org.Hs.eg.db  
-STRINGdb  
-HTSanalyzeR  
-GO.db  
-GEOquery  
-hgu133plus2.db  
-GSEABase  
+### Pacotes interessantes para análise de dados (geral)
+* tidyverse:
+  + ggplot2: gráficos
+  + dplyr: manipulação de dados tabulares
+  + tibble: tabelas
+  + readr: leitura de dados rápida
+  + stringr: manipulação de dados em caracter
+* caret: machine learning
+* RedeR: interface integrada R-Java para manipulação de redes
+
+### Pacotes interessantes da área biológica
+* limma - Análise de expressão diferencial (DESeq2, edgeR)
+* RColorBrewer - Paletas de cores
+* STRINGdb - Interações proteína-proteína
+* biomaRt - Anotação de genes
+* GO.db - Anotações gene ontology
+* RTN - Reconstrução de redes trancricionais
 
 ### Vinhetas
 Fornecem exemplos e documentação para pacotes do Bioconductor.
-Podem ser acessadas pelo R (depois que o pacote foi instalado e carregado) via console>
+Podem ser acessadas pelo R (depois que o pacote foi instalado e carregado) via console:
 ```{r eval=FALSE}
 vignette("NomeDoPacote")
 ```
@@ -139,7 +142,8 @@ help(sum)
 ```
 
 # Lições Interativas
-Você já tem instalado neste computador um pacote chamado swirl. O swirl é um guia interativo com cursos práticos em linguagem R. Com o swirl, é possível fazer lições voltadas para os mais diversos níveis em linguagem R. Agora, faremos um curso básico, chamado: Programacao_em_R.  
+Você já tem instalado neste computador um pacote chamado swirl. O swirl é um guia interativo com cursos práticos em linguagem R. Com o swirl, é possível fazer lições voltadas para os mais diversos níveis em linguagem R. Agora, faremos um curso básico, chamado: Programacao_em_R.
+
 Comece carregando o pacote swirl, alterando o idioma para Português e usando a função que mostra os cursos.
 ```{r eval=FALSE}
 #Carrega o pacote swirl

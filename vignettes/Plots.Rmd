@@ -31,113 +31,146 @@ Iris contém os dados de comprimento e largura da sépala e da pétala de 150 pl
 <legend>Figura 2 - Representação da estrutura de uma flor. A sépala é a região da flor que fornece sustentação às pétalas. </legend>
 
 ###Scatter Plot
-Para plotar um grafo de pontos (scatter plot) da relação entre o comprimento e a largura das pétalas, basta utilizar a função plot.
+O scatter plot (gráfico de dispersão) é útil em comparações entre duas variáveis contínuas. Para plotar um scatter plot da relação entre o comprimento e a largura das pétalas, basta utilizar a função plot.
 ```{r eval=FALSE}
-plot(iris$Petal.Length, iris$Petal.Width, main= "Pétala - largura vs comprimento")
+plot(x = iris$Petal.Length, 
+     y = iris$Petal.Width, 
+     main = "Pétala - largura vs comprimento") # título
 ```
 Para saber qual medida vem de qual espécie e se estas se agrupam, podemos alterar o tipo de ponto para cada espécie ou a cor destes.  
+
 Alterando tipos de pontos do scatter plot:
 ```{r eval=FALSE}
-plot(iris$Petal.Length, iris$Petal.Width, pch=c(21,22,23)[unclass(iris$Species)], main= "Pétala - largura vs comprimento")
+plot(x = iris$Petal.Length, 
+     y = iris$Petal.Width, 
+     pch = c(21,22,23)[unclass(iris$Species)], # 'plotting character' = tipo do ponto (? points)
+     main = "Pétala - largura vs comprimento")
 ```
-Alterando cor
+
+Alterando cor:
 ```{r eval=FALSE}
-plot(iris$Petal.Length, iris$Petal.Width, pch=21, bg=c("red","green3","blue")[unclass(iris$Species)], main="Pétala - largura vs comprimento")
-legend("bottomright", legend= levels(iris$Species), col=c("red","green3","blue"), pch=21, bty="n")
-abline(lm(Petal.Width~Petal.Length, data=iris), col="grey")
+plot(x = iris$Petal.Length, 
+     y = iris$Petal.Width, 
+     pch = 21, 
+     bg = c("red","green3","blue")[unclass(iris$Species)], # 'background' color, só col muda a cor da borda
+     main = "Pétala - largura vs comprimento")
+legend("bottomright", # posição da legenda
+       legend = levels(iris$Species), # o que vai na legenda
+       pt.bg = c("red","green3","blue"), # cores dos pontos
+       pch = 21, 
+       bty = "n") # 'box type', n é nenhuma ('none')
+abline(lm(Petal.Width~Petal.Length, data=iris), col="grey30") # adiciona uma linha de regressão linear
 ```
 Para ver como que as variáveis se comportam entre si de uma maneira mais gráfica, é possível criar um scatter plot de pares, que mostra a disposição dos pontos conforme cada combinação de dois fatores (Draftsman's design).
 ```{r eval=FALSE}
-pairs(iris[1:4], main = "Relação par a par", pch = 21, bg = c("red", "green3", "blue")[unclass(iris$Species)])
+pairs(iris[1:4], 
+      main = "Relação par a par", 
+      pch = 21, 
+      bg = c("red", "green3", "blue")[unclass(iris$Species)])
 ```
 ###Histograma
-Para ver se os dados seguem uma distribuição normal, o histograma é de grande utilidade:
+O histograma avalia a distribuição dos seus dados em diferentes intervalos. Para ver se os dados seguem uma distribuição normal, o histograma é de grande utilidade:
 ```{r eval=FALSE}
-hist(iris$Sepal.Width, col="grey")
-hist(iris$Petal.Length, col="grey")
+hist(iris$Sepal.Width)
+hist(iris$Petal.Length)
+```
+O gráfico pode ser refinado mudando o número de intervalos:
+```{r eval=FALSE}
+hist(iris$Sepal.Length, breaks = 6)
 ```
 
 ###Boxplot
-Boxplot pode ser utilizado para comparar as diferenças entre as três espécies, por exemplo, como a largura da pétala.
+O boxplot (diagrama de caixa) é útil quando temos uma variável contínua que deve ser comparada entre grupos (variável categórica). Por exemplo, um boxplot pode ser utilizado para comparar as diferenças entre as três espécies, por exemplo, como a largura da pétala.
 ```{r eval=FALSE}
-boxplot(iris$Petal.Width~iris$Species, iris$Species, col=c("pink", "yellow", "grey"), ylab="Largura da pétala")
+boxplot(iris$Petal.Width~iris$Species, iris$Species, 
+        col=c("pink", "yellow", "grey"), 
+        ylab="Largura da pétala") # 'y label', nome do eixo y
 ```
 
+###Barplot
+O barplot é interessante quando queremos contar quantos elementos têm em cada grupo (frequência de variável categórica). Aqui, por exemplo, podemos mostrar quantas iris de cada espécie estão presentes no nosso dataframe.
+
+```{r eval=FALSE}
+barplot(table(iris$Species))
+```
 ###Heatmaps
-Torna visível a clusterização das espécies conforme determinadas características.
+Torna visível a clusterização das espécies conforme determinadas características. No heatmap, podemos ver associação entre várias características e entre as observações ao mesmo tempo.
 ```{r eval=FALSE}
-heatmap(t(iris[, 1:4]), trace="none", scale="row", key=TRUE, mar=c(2, 8), cexRow=1, ColSideColors=c("grey", "black", "yellow")[iris$Species])
+library(pheatmap)
+rownames(iris) <- 1:nrow(iris) # adiciona 'nomes' às amostras (1 a 150)
+pheatmap(t(iris[,1:4]), # t de 'transpose' -> transpor a matriz
+         annotation_col = data.frame(Species = iris$Species), # adicionar uma barra de anotação com info de espécie
+         show_colnames = FALSE) # esconde nomes das colunas (1 a 150)
 ```
 
-###Volcano
-O exemplo utiliza dados topográficos reais de um vulcão, mas pode ser usado para outros tipos de dados.  
-Com dados topográficos:
-```{r eval=FALSE}
-filled.contour(volcano, color.palette = terrain.colors, asp = 1)
+###Gráfico de rede
+Vamos supor que queremos visualizar uma rede de interações entre proteínas (rede PPI). A partir do STRINGdb, um banco de dados de interações proteína-proteína, importamos todas as relações (`esr1_ppi`). De lá, também adquirimos informações sobre as proteínas da rede (`prot_annot`). Para o receptor de estrogênio 1 (ESR1), esses dados estão armazenados em `ppi4esr1`.
+
+```{r eval = FALSE}
+# Carrega os dados
+data(ppi4esr1)
+# Visualiza os dados no console
+esr1_ppi
+prot_annot
+```
+Há vários pacotes para visualizar redes -- incluindo o RedeR, que foi desenvolvido pelo nosso grupo no Laboratório de Bioinformática e Biologia de Sistemas. Ele traz uma interface R e Java bastante poderosa para visualização e organização de redes de grande complexidade. 
+
+Porém, hoje iremos utilizar a função `ggnet2` e o pacote `network` para construir a rede. Iremos utilizar apenas as duas primeiras colunas de esr1_ppi, que contém os nomes das proteínas na ligação (ex.: Prot1 <-> Prot2; Prot1 <-> Prot3)
+
+```{r eval = FALSE}
+# Chama as bibliotecas
+library(network)
+library(sna)
+library(ggplot2)
+library(GGally)
+
+# Cria a rede
+net <- network(as.matrix(esr1_ppi[,1:2]), directed = FALSE)
 ```
 
-###Diagrama de Venn
-```{r eval=FALSE}
-library(gplots)
-Setosa<-iris[iris$Species=="setosa",1]
-Versicolor<-iris[iris$Species=="versicolor", 1]
-Virginica<-iris[iris$Species=="virginica",1]
-Sepala<-list(Setosa, Versicolor, Virginica)
-names(Sepala) <- c("Setosa", "Versicolor", "Virginica")
-venn(Sepala)
+Agora que temos a rede, podemos plotá-la simplesmente com o comando
+
+```{r eval = FALSE}
+ggnet2(net)
 ```
 
-##Utilizando o RedeR
-RedeR é uma ferramenta para construção e visualização de redes com integração à interface java.
-###Principais chamadas
-O primeiro passo é construir a porta do servidor, que será necessária em todos os procedimentos de chamada. O construtor RedPort é o padrão.
-```{r eval=FALSE}
-library(RedeR)
-rdp <- RedPort()
-```
-Em seguida, o RedeR pode ser invocado utilizando o método calld:
-```{r eval=FALSE}
-calld(rdp)
-```
-Uma vez dentro da interface ativa, o método addGraph pode facilmente mandar grafos em R para a aplicação. Por exemplo, o trecho a seguir adiciona um objeto igraph[3].
-```{r eval=FALSE}
-library(igraph)
-g1 <- graph.lattice(c(5,5,5))
-addGraph( rdp, g1, layout.kamada.kawai(g1) )
-```
-É possível limpar a interface Java sem fechá-la:
-```{r eval=FALSE}
-resetd(rdp)
-```
-Gráficos R presentes na interface Java podem ser convertidos em objetos igraph com a função getgraph.
+Porém isso não é muito informativo. Não sabemos qual vértice representa quem na rede e nada sobre as proteínas. Podemos adicionar essas informações usando a função `set.vertex.attribute`, já que cada proteína é um vértice (vertex ou node) de nossa rede. Em `prot_annot`, temos duas informações interessantes - a função resumida e o tamanho do transcrito para cada proteína.
 
-###Exemplo
-Vamos supor que temos 3 camadas de dados populacionais (IDH, IMC e exportação) e queremos visualizar tudo de uma maneira simples.  
-Primeiramente, carregue os as informações de IDH, IMC e de relações de comercialização do produto X:
-```{r eval=FALSE}
-data("dados")
-data("edges")
-```
-Transforme a tabela em um objeto ighraph e atribua a média do IMC de cada país ao tamanho dos nodos e o nível do IDH para a cor dos nodos:
-```{r eval=FALSE}
-gr_total<-graph_from_data_frame(edges, directed = T, vertices = dados)
-gr_total<- att.setv(g=gr_total, from="media_IMC", to="nodeSize", nquant=10, isrev=F, xlim=c(5,40,1))
-gr_total<- att.setv(g=gr_total, from="IDH_level", to="nodeColor", pal=2)
-```
-Adicione o grafo à interface Java:
-```{r eval=FALSE}
-addGraph(rdp, gr_total, isNest =TRUE, gcoord=c(25,25), gscale=110, theme= 'tm1', zoom=100)
-relax(rdp)
-```
-Adicione legenda das cores e dos tamanhos dos nodos
-```{r eval=FALSE}
-leg_cor <- gr_total$legNodeColor$scale
-addLegend.color(rdp, colvec=leg_cor, labvec=c("Baixo (1)", "Médio (2)", "Alto (3)"), title="Nível do IDH")
+```{r eval = FALSE}
+? set.vertex.attribute
+# Adiciona a anotação resumida
+set.vertex.attribute(net, "cell_function", esr1_annot$short_annot)
+# Adiciona tamanho do transcrito
+set.vertex.attribute(net, "transcript_length", esr1_annot$tlength)
 
-leg_tam <- gr_total$legNodeSize$scale
-leg <- gr_total$legNodeSize$legend
-addLegend.size(rdp, sizevec=leg_tam, labvec=leg, title="IMC médio populacional")
+ggnet2(net,
+       label = TRUE, # mostra os nomes
+       color = "cell_function", # mapeia cada função para uma cor do vértice
+       size = "transcript_length", # mapeia comprimento do transcrito para tamanho do vértice
+       palette = "Set2") + # muda a paleta de cores
+guides(size = FALSE) # esconde a legenda de tamanho
 ```
+
+Agora está melhor! Mas há mais uma informação que pode enriquecer nossa rede. Em `esr1_ppi`, temos um score para cada interação. Podemos visualizar a força da evidência da interação também na nossa rede mudando a largura da aresta (edge).
+
+```{r eval = FALSE}
+? set.edge.attribute
+
+# Adiciona score de evidência na aresta
+set.edge.attribute(net, "interaction", esr1_ppi$combined_score * 1.3)
+
+ggnet2(net, 
+       label = TRUE, 
+       color = "cell_function",
+       size = "transcript_length",
+       palette = "Set2",
+       edge.size = "interaction", # mapeia score combinado à largura da aresta
+       edge.color = "grey80") + # deixa as arestas cinza claro)
+  guides(size = FALSE)
+```
+
+E voilà!
+
 # Lições Interativas
 Quer colocar as novas habilidades em gráficos em prática? Volte ao swirl para treinar.  
 Se você ainda não tem o pacote swirl carregado no teu ambiente, veja a sessão de Lições Interativas na vignette("Intro") para ver como fazer este passo.  
