@@ -1,11 +1,11 @@
 Package: Rbasics
 Type: Package
 Title: Ferramenta de auxílio no entendimento da linguagem R básica.
-Version: 0.1.0
+Version: 0.2.0
 Author: Kelin G. deOliveira, Mauro A. A. Castro, Clarice S. Groeneveld, Sheyla Trefflich
-Maintainer: Kelin Gonçalves <kelin.g.oliveira@hotmail.com>
+Maintainer: Clarice S. Groeneveld <clari.groeneveld@gmail.com>
 Depends: R (>= 3.3)
-Description: Este pacote oferece um curso rápido do básico da linguagem R (comandos básicos, como instalar e chamar pacotes) e introduz o usuário às ferramentas construídas pelo Prof. Dr. Mauro A. A. Castro: RTN e RedeR. O pacote RTN realiza a inferência de redes regulatórias a partir de dados de expressão gênica, permite encontrar reguladores-chave, moduladores, entre outras análises possíveis de serem feitas. RedeR é uma ferramenta para construção e visualização de redes com integração à interface java.
+Description: Este pacote oferece um curso rápido do básico da linguagem R, em quatro lições: introdução geral à linguagem, objetos básicos, objetos tabulares e visualização.
 VignetteBuilder: knitr
 License: Artistic-2.0
 Encoding: UTF-8
